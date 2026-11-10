@@ -88,7 +88,7 @@ jobs:
               run: node site/build.js --require-media
 
             - name: checkout repo stats
-              if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+              if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && github.repository == 'microsoft/power-platform-skills'
               uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
               with:
                   ref: github-repo-stats
@@ -97,18 +97,18 @@ jobs:
                   persist-credentials: false
 
             - name: add repo stats to site
-              if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+              if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && github.repository == 'microsoft/power-platform-skills'
               run: cp -R repo-stats/microsoft site/dist/microsoft
 
             - name: upload pages artifact
-              if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+              if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && github.repository == 'microsoft/power-platform-skills'
               uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
               with:
                   path: site/dist
 
     deploy:
         name: deploy-showcase-site
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && github.repository == 'microsoft/power-platform-skills'
         needs: build
         runs-on: ubuntu-latest
         timeout-minutes: 10
